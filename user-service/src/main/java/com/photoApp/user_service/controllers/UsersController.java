@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +19,12 @@ import org.springframework.web.bind.annotation.*;
 public class UsersController {
     private final UserService userService;
 
+    @Value("${secret_key}")
+    private String secretKey;
+
     @GetMapping("/status")
     public String status() {
-        return "Working";
+        return "Working with token secret: " + secretKey;
     }
 
     @PostMapping
