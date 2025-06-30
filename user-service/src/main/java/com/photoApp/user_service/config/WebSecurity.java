@@ -42,7 +42,8 @@ public class WebSecurity {
 
         http
                 .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/users/**", "/h2-console/**").permitAll())
+                .requestMatchers("/users/**", "/h2-console/**").permitAll()
+                        .requestMatchers("/actuator/**").permitAll())
                 .addFilter(authFilter)
                 .sessionManagement((session) -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
