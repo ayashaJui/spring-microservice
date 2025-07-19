@@ -34,11 +34,11 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(HttpMethod.POST, "/actuator/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/**").hasRole("CLIENT")
-                        .requestMatchers(HttpMethod.POST, "/encrypt").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.POST, "/decrypt").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/encrypt").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/decrypt").permitAll()
 
                         .anyRequest().authenticated())
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/actuator/**"))
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/actuator/**", "/encrypt", "/decrypt"))
                 .httpBasic(Customizer.withDefaults());
         return http.build();
     }
